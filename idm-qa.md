@@ -69,7 +69,7 @@
 1. Does IdM expose a Webservice, API or scriptable CLI for configuration and management, or leverage configuration management tools for all agent-management responsibilities?
 	* IdM provides a scriptable CLI. Some of the operations (particularly read operations) can be performed over LDAP. Roadmap includes JSON based remote API.
 
-1.Does IdM leverage incumbent infrastructure where appropriate (e.g., Microsoft Active Directory, DNS, Time). If the solution duplicates infrastructure, can IdM interoperate with infrastructure which it duplicates without exposing the incumbent infrastructure to risk of disruption?
+1. Does IdM leverage incumbent infrastructure where appropriate (e.g., Microsoft Active Directory, DNS, Time). If the solution duplicates infrastructure, can IdM interoperate with infrastructure which it duplicates without exposing the incumbent infrastructure to risk of disruption?
 	* IdM integrates with AD (via trust), DNS (via zone delegation) and CAs (as a subordinate CA). It brings its own optional DNS and PKI components that can be omitted in favor of DNS and PKI components already available in the infrastructure.
 
 1. Does IdM support patching and upgrade via an existing configuration management solution such as Puppet, and explain how ?
