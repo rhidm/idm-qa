@@ -1,6 +1,6 @@
 #Red Hat Identity Management (IdM) Q&A
 
-##Core Requirements:
+##Core Requirements
 
 1. Does IdM provide consistent authentication (login) for all UNIX/Linux endpoints ? 
 	* Red Hat Identity Management (IdM) provides native authentication for Red Hat Enterprise Linux (RHEL) 6 and RHEL7 via SSSD, and provides both an LDAP and Kerberos interface for other Unix/Linux systems
