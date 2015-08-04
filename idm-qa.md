@@ -29,7 +29,7 @@
 	* IdM will read POSIX Attributes from the Active Directory and provide them to clients, including the homeDirectory field. 
 
 1. Does IdM support host-based access control (Authorization, Security) ? 
-	* IdM natively supports host-based access control for RHEL clients, with rules created by GUI or CLI of the form: _user or group of users_ can access _host or group of hosts_ via _service or group of services_. Non-RHEL clients will each have their own mechanism for limiting access via groups read from IdM via LDAP.
+	* IdM natively supports host-based access control for RHEL clients, with rules created by GUI or CLI of the form: **user or group of users** can access **host or group of hosts** via **service or group of services**. Non-RHEL clients will each have their own mechanism for limiting access via groups read from IdM via LDAP.
 
 1. Does IdM support security groups in Active Directory for purposes of grouping servers and users? 
 	* Active Directory groups of users can as nested groups within IdM. Hosts joined to IdM will be grouped in host groups within IdM.
