@@ -1,6 +1,6 @@
 #Red Hat Identity Management (IdM) Q&A
 
-##Core Requirements
+##Core Functionality
 
 1. Does IdM provide consistent authentication (login) for all UNIX/Linux endpoints ? 
 	* Red Hat Identity Management (IdM) provides native authentication for Red Hat Enterprise Linux (RHEL) 6 and RHEL7 via SSSD, and provides both an LDAP and Kerberos interface for other Unix/Linux systems
@@ -53,7 +53,7 @@
 1. Can IdM scale to support at minimum 100,000 Linux/Unix identities, including 15,000 Linux/Unix server identities? 
 	* IdM can support 100,000 different identities inclusing users, groups, hosts, host groups, netgroups and kerberized services. The IdM based solution supports up to 20 replicas in flexibile topology. SSSD containes caches that allows reducing the load on the central IdM servers.
 
-## Systems Integration
+## Integration
 1. Does IdM support cloud Infrastructure As A Service (IAAS) endpoints? 
 	* Any Linux system that has corresponig SSSD and IdM client software can be joined into IdM environment.
 
@@ -84,7 +84,7 @@
 1. Is IdM compatible with a virtualized environment (VMware) ? 
 	* Yes, IdM is independent of the platform where the OS runs.
 
-## Availability
+## High Availability
 1. Does IdM provide automated failure-discovery and automated reconfiguration to pick-up new sources?
 	* As soon as a new IdM server is added the integrated DNS server is automatically updated with the information about this server. Clients that use service discovery can start taking advantage of this server right away.
 
