@@ -2,11 +2,11 @@
 
 ##Core Functionality
 
-1. Does IdM provide consistent authentication (login) for all UNIX/Linux endpoints ? 
-	* Red Hat Identity Management (IdM) provides native authentication for Red Hat Enterprise Linux (RHEL) 6 and RHEL7 via SSSD, and provides both an LDAP and Kerberos interface for other Unix/Linux systems
+1. Does IdM provide consistent authentication (login) for all UNIX/Linux endpoints including Solaris, AIX and HP-UX? 
+	* Red Hat Identity Management (IdM) provides native authentication for Red Hat Enterprise Linux (RHEL) 6 and RHEL7 via SSSD, and provides both an LDAP and Kerberos interface for other Unix/Linux systems.  Support for various flavors of UNIX vary, but at a minimum, LDAP authentication will work.
  
-1. Does IdM support integration to a centralized store of identities, such as Microsoft Active Directory 2008 R2 (and future versions of Active Directory), along with associated authorizations, credentials?
-	* IdM supports a trust relationship to AD, such that users and groups in AD can be granted permissions to RHEL servers managed by IdM.
+1. Does IdM support integration to a centralized store of identities, such as Microsoft Active Directory 2008 R2 (and future versions of Active Directory), along with associated authorizations, credentials and passwords?
+	* IdM supports a trust relationship to AD, such that users and groups in AD can be granted permissions to RHEL servers managed by IdM.  Passwords, however, are synchronized in both directions; from Active Directory to Identity Management and from Identity Management to Active Directory .  At first installation (initialization) all passwords must be reset so that the new passwords can be captures by Identity Management via the password synch.
 
 1. Does IdM provide the option to identify principals by a means other than username (UPN, employee ID, other)? 
 	* Users created in IdM have additional information stored as attributes, such as first name and last name. Additional key attributes are available out-of-the box, such as email, employee number, and kerberos principal. Custom attributes can be created through modification of IdM's schema.
@@ -44,6 +44,11 @@
 1. Does IdM provide SSO capabilities for interactive login, preferably using a mechanism such as Kerberos?
 	* IdM provides a Kerberos realm as part of the solution.
 
+1. What versions of IdM support replication and trusts?
+	* Replication with AD sync is support by all versions of IdM included in RHEL 6.2 and later.  Replication allows users to use one password to login in AD and IdM.  It also provides automatic provisision of a corresponding IdM user whan an AD user is provisioned.
+	* Trust functionality is available in 6.4 as tech preview. It will be tech preview in 6.x unless ported. It will be supported for selected customers that are willing to work with Red Hat more closely on this feature.
+	* Trusts are fully supported out of box starting RHEL 7.
+
 1. Does IdM provide SSO capabilities for web-based applications running on UNIX/Linux endpoints, using a mechanism such as Kerberos, Oauth, SAML or similar? 
 	* Solution provides SSO using Kerberos. Roadmap includes a SAML IdP (see upstream Ipsilon project for more details).
 
@@ -53,12 +58,19 @@
 1. Can IdM scale to support at minimum 100,000 Linux/Unix identities, including 15,000 Linux/Unix server identities? 
 	* IdM can support 100,000 different identities inclusing users, groups, hosts, host groups, netgroups and kerberized services. The IdM based solution supports up to 20 replicas in flexibile topology. SSSD containes caches that allows reducing the load on the central IdM servers.
 
+1. Can password complexity rules be changed?
+	* Password policies are able to be defined and modified either in the GUI or using the CLI.  See the [Linux Domain Identity, Authentication, and Policy Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html-single/Linux_Domain_Identity_Authentication_and_Policy_Guide/index.html#about-pwd-policy) for more information.
+
+
 ## Integration
 1. Does IdM support cloud Infrastructure As A Service (IAAS) endpoints? 
 	* Any Linux system that has corresponig SSSD and IdM client software can be joined into IdM environment.
 
 1. Does IdM leverage service-discovery to reduce expense of endpoint configuration and ensure changes in the sources of authentication services are rapidly and consistently picked-up? 
 	* The default configuration of the SSSD is to use service discovery (via DNS SRV records) to determine available servers.
+
+1. How does IdM handle caching?  Can the cache be cleared?
+	* IdM uses SSSD's caching feature.  To clear the cache, see the [Red Hat Enterprise Linux Deployment Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/sssd-cache.html)
 
 1. Does IdM provide automation for endpoint enrollment and configuration, possibly leveraging existing configuration management solution such as Puppet (Manageability, Integration)? 
 	* The clients can be enrolled by running ipa-client-install command. There are publicly available Puppet modules to automate this process. Satellite 6 is also able to orchestrate automatic client enrollment.
@@ -84,6 +96,9 @@
 1. Is IdM compatible with a virtualized environment (VMware) ? 
 	* Yes, IdM is independent of the platform where the OS runs.
 
+1. Is IdM able to be integrated with OpenShift Enterprise?
+	* Yes, OpenShift 3.x can use LDAP and an identity provider.  Configuration instructions are available in the [Configuring Authentication](https://access.redhat.com/documentation/en/openshift-enterprise/version-3.1/installation-and-configuration/#configuring-authentication) of the OpenShift Enterprise 3.1 Installation and Configuration Guide.
+
 ## High Availability
 1. Does IdM provide automated failure-discovery and automated reconfiguration to pick-up new sources?
 	* As soon as a new IdM server is added the integrated DNS server is automatically updated with the information about this server. Clients that use service discovery can start taking advantage of this server right away.
@@ -93,3 +108,7 @@
 
 1. Does IdM continue to provide service after sustaining the loss of more than one authentication server within a site (HA within a Datacenter)?
 	* All IdM servers are masters, such that all remaining servers can continue to provive service. The deployment supports automatical failover and loadbalacing built into clients side re-connection logic.
+
+1. How do you backup and restore and IdM server?
+	* Identity Management solution is usually one of the crucial parts of a corporate infrastructure. As such, it needs to have a backup and restore mechanisms in place to provide high availability.  Several methods are available and can be further explored in [this article](https://access.redhat.com/solutions/626303) in the Red Hat Knowledgebase
+
